@@ -6,31 +6,30 @@ public class JobSchedule {
     String type; // "hourly", "daily", "weekly"
     int hour;
     int minute;
-    String dayOfWeek; // Only used for weekly, like "monday", "tuesday", etc.
+    String dayOfWeek; // Used only for weekly
 
     public JobSchedule(Job job, String type, int hour, int minute, String dayOfWeek) {
         this.job = job;
         this.type = type.toLowerCase();
         this.hour = hour;
         this.minute = minute;
-        this.dayOfWeek = dayOfWeek == null ? null : dayOfWeek.toLowerCase();
+        this.dayOfWeek = (dayOfWeek != null) ? dayOfWeek.toLowerCase() : null;
     }
 
     public boolean shouldRun(LocalDateTime now) {
-        int nowHour = now.getHour();
-        int nowMinute = now.getMinute();
-        String nowDay = now.getDayOfWeek().toString().toLowerCase(); // e.g., "monday"
+        int currentHour = now.getHour();
+        int currentMinute = now.getMinute();
+        String currentDay = now.getDayOfWeek().toString().toLowerCase();
 
-        switch (type) {
-            case "hourly":
-                return nowMinute == minute;
-            case "daily":
-                return nowHour == hour && nowMinute == minute;
-            case "weekly":
-                return nowDay.equals(dayOfWeek) && nowHour == hour && nowMinute == minute;
-            default:
-                return false;
+        if (type.equals("hourly")) {
+            return currentMinute == minute;
+        } else if (type.equals("daily")) {
+            return currentHour == hour && currentMinute == minute;
+        } else if (type.equals("weekly")) {
+            return currentDay.equals(dayOfWeek) && currentHour == hour && currentMinute == minute;
         }
+        return false;
     }
 
 }
+
