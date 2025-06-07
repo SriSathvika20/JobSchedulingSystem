@@ -1,9 +1,8 @@
 import java.util.Scanner;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
         SchedulerService scheduler = new SchedulerService();
 
@@ -30,7 +29,7 @@ public class Main {
                 break;
             case "weekly":
                 System.out.print("Enter the day of the week to run the job (e.g., monday): ");
-                scanner.nextLine(); // consume leftover newline
+                scanner.nextLine(); // consume newline
                 dayOfWeek = scanner.nextLine().toLowerCase();
                 System.out.print("Enter the hour (0–23): ");
                 hour = scanner.nextInt();
@@ -49,14 +48,14 @@ public class Main {
         System.out.println("Job scheduled successfully. Waiting for trigger...");
         scheduler.start();
 
-        // Keep program running forever
+        // Keep the main thread running to allow the scheduler to keep working
         while (true) {
             try {
-                Thread.sleep(60000); // sleep to reduce CPU
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
                 break;
             }
         }
+
     }
 }
