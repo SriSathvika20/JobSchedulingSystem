@@ -1,7 +1,6 @@
 import java.time.LocalDateTime;
 
 public class Job {
-
     private final String name;
 
     public Job(String name) {
@@ -9,7 +8,6 @@ public class Job {
     }
 
     public void run() {
-        System.out.println("[" + LocalDateTime.now() + "] " + name );//+ ": Hello World");
+        System.out.println("[" + LocalDateTime.now() + "] " + name); //+ ": Hello World");
     }
-
 }
